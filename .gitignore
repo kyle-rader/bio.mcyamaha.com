@@ -1,2 +1,4 @@
 /cache/
 /config/development/
+/config/mysql.ini
+

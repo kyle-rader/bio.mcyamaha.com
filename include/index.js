@@ -21,6 +21,8 @@ function LoadPage(page) {
 
 $(document).on('click', 'a.top-btn', function(event) {
 	var page = $(this).attr('data-target');
+	$('a.top-btn').parent().removeClass('active');
+	$(this).parent().addClass('active');
 	setCookie('page', page, 1);
 	LoadPage(page);
 });

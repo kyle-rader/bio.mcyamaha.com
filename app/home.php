@@ -5,8 +5,14 @@ $title = <<<EOT
 EOT;
 print PageTitle($title);
 ?>
-<div class="row">
-	<div class="large-12 columns">
-		<h2>HIV Variations</h2>
-	</div>
+<style>
+<?php include_once("css/home.css"); ?>
+</style>
+<div class="row-wide">
+     <div class="sequence-data">
+		<svg class="chart"></svg>
+     </div>
 </div>
+<script>
+<?php include_once("js/home.js"); ?>
+</script>

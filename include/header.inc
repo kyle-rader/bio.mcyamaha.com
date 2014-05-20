@@ -10,6 +10,7 @@ print <<<EOT
 	<script src="/foundation/js/foundation.min.js"></script>
 	<script src="/foundation/js/vendor/fastclick.js"></script>
 	<script src="/foundation/js/jquery.md5.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<link rel="stylesheet" type="text/css" href="/foundation/css/foundation.min.css">
 	<link rel="stylesheet" type="text/css" href="/foundation/css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="/foundation-icons/foundation-icons.css">

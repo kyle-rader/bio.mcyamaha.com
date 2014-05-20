@@ -1,0 +1,11 @@
+.chart rect {
+  fill: #fff;
+}
+.chart rect:hover {
+  fill: #0ae;
+}
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: middle;
+}

@@ -1,39 +1,36 @@
-
 $(document).ready(function() {
     buildSumbar();
 });
 
 function buildSumbar() {
-    var data = getData(2005, 25);
+    var data = getData(2003, 25);
 
-	var width = Math.round($(window).width() * 0.85), height = 500;
-	
-	var y = d3.scale.linear()
-						.range([height - 1, 0]);
-						
-	var chart = d3.select(".chart")
-						.attr("width", width)
-						.attr("height", height);
-						
-	y.domain([0, d3.max(data, function(d) { return d; })]);
-	
-	var barWidth = width / data.length;
-	
-	var bar = chart.selectAll("g")
-						.data(data)
-					.enter().append("g")
-						.attr("transform", function(d, i) { return "translate(" + i * barWidth + ", 0)"; });
-	bar.append("rect").transition().delay(50)
-		.attr("y", function(d) { return y(d); })
-		.attr("height", function(d) { return height - y(d); })
-		.attr("width", barWidth - (barWidth * .25));
-/*
-	bar.append("text")
-		.attr("x", barWidth / 2)
-		.attr("y", function(d) { return y(d) + 3;  })
-		.attr("dy", ".75em")
-		.text(function(d) { return d.toPrecision(2); });
-*/
+    var width = Math.round($(window).width() * 0.85), height = 50;
+    
+    var y = d3.scale.linear()
+	.range([height - 1, 0]);
+    
+    var chart = d3.select(".chart")
+	.attr("width", width)
+	.attr("height", height);
+    
+    y.domain([0, d3.max(data, function(d) { return d; })]);
+    
+    var barWidth = width / data.length, barHeight = 50;
+    
+    var bar = chart.selectAll("g")
+	.data(data)
+	.enter().append("g")
+	.attr("transform", function(d, i) { return "translate(" + i * barWidth + ", 0)"; });
+
+    bar.append("rect")
+	.attr("y", function(d) { return 0; })
+	.attr("height", function(d) { return barHeight; })
+	.attr("width", barWidth - (barWidth * .25));
+
+    bar.selectAll("rect").transition().delay(function(d, i) { return i * 500;})
+        .style("fill", function(d) { return "rgb(" + 255 + "," + (255 - d*255) +", " + (275-(d*255)) + ")";});
+
 };
 
 function getData(year, bin) {

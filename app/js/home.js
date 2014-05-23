@@ -3,7 +3,7 @@ $(document).ready(function() {
 });
 
 function buildSumbar() {
-    var data = getData(2003, 25);
+    var data = getData(2005, 25);
 
     var width = Math.round($(window).width() * 0.85), height = 50;
     
@@ -42,7 +42,7 @@ function getData(year, bin) {
 	data: {'year':year},
 	success: function(response) {
 	    response = JSON.parse(response);
-	    sumData = buildSummaryData(response['sequence'], bin);
+	    sumData = buildSummaryData(response['1.00']['sequence'], bin);
 	}
     });
     return sumData;

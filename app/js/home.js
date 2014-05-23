@@ -1,22 +1,25 @@
 $(document).ready(function() {
-    buildSumbar();
+    for(var i = 1985; i < 2011; i++) {
+	buildSumbar(i);
+    }
+
 });
 
-function buildSumbar() {
-    var data = getData(2005, 25);
+function buildSumbar(year) {
+    var data = getData(year, 25);
 
-    var width = Math.round($(window).width() * 0.85), height = 50;
+    var width = Math.round($(window).width() * 0.85), height = 25;
     
     var y = d3.scale.linear()
 	.range([height - 1, 0]);
     
-    var chart = d3.select(".chart")
+    var chart = d3.select(".sequence-data").append("svg")
 	.attr("width", width)
 	.attr("height", height);
     
     y.domain([0, d3.max(data, function(d) { return d; })]);
     
-    var barWidth = width / data.length, barHeight = 50;
+    var barWidth = width / data.length, barHeight = 25;
     
     var bar = chart.selectAll("g")
 	.data(data)

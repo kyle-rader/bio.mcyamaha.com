@@ -10,7 +10,7 @@ print PageTitle($title);
 </style>
 <div class="row-wide">
      <div class="sequence-data">
-		<svg class="chart"></svg>
+
      </div>
 </div>
 <script>

@@ -45,7 +45,8 @@ function getData(year, bin) {
 	data: {'year':year},
 	success: function(response) {
 	    response = JSON.parse(response);
-	    sumData = buildSummaryData(response['1.00']['sequence'], bin);
+	    seq = response['1.00'] || response['0.90'] || response['0.50'];
+	    sumData = buildSummaryData(seq['sequence'], bin);
 	}
     });
     return sumData;

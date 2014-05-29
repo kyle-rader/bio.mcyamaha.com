@@ -21,14 +21,14 @@ $data = [];
 
 $sql = <<<EOT
 SELECT *, CHAR_LENGTH(sequence) char_count FROM sequence
-WHERE consensus = 1 AND YEAR = ?;
+WHERE consensus = 1 AND subtype = 'B' AND YEAR = ?;
 EOT;
 
 if($stmt = $mysqli->prepare($sql))
 {
 	$stmt->bind_param("s", $year);
 	$stmt->execute();
-	$stmt->bind_result($id, $year, $consensus, $threshold, $description, $sequence, $count);
+	$stmt->bind_result($id, $subtype, $year, $consensus, $threshold, $description, $sequence, $count);
 	while($stmt->fetch())
 	{
 		$data["$threshold"] =  Array('id' => $id,

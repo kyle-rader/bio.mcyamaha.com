@@ -1,12 +1,36 @@
-$(document).ready(function() {
-    for(var i = 1985; i < 2011; i++) {
-	buildSumbar(i);
+var dataStore = (function () {
+    var data;
+    $.ajax({
+	type: 'POST',
+	url:'/ajax/get_sequence_data.php',
+	success: function(response) {
+	    data = JSON.parse(response);
+	    setData(data);
+	}
+    });
+
+    return {getData : function() {
+	if(data) return data;
+	else return false;
+    }};
+})();
+
+var _data;
+function setData(data) {
+    _data = data;
+    buildMaps();
+};
+
+function buildMaps() {
+    for (var key in _data) {
+	if (_data.hasOwnProperty(key)) {
+	    buildSumbar(_data[key]);
+	}
     }
+};
 
-});
-
-function buildSumbar(year) {
-    var data = getData(year, 25);
+function buildSumbar(data) {
+    var sumSeq = buildSummaryData(data['sequence'], 25);
 
     var width = Math.round($(window).width() * 0.85), height = 25;
     
@@ -19,10 +43,10 @@ function buildSumbar(year) {
     
     y.domain([0, d3.max(data, function(d) { return d; })]);
     
-    var barWidth = width / data.length, barHeight = 25;
+    var barWidth = width / sumSeq.length, barHeight = 25;
     
     var bar = chart.selectAll("g")
-	.data(data)
+	.data(sumSeq)
 	.enter().append("g")
 	.attr("transform", function(d, i) { return "translate(" + i * barWidth + ", 0)"; });
 
@@ -34,22 +58,6 @@ function buildSumbar(year) {
     bar.selectAll("rect").transition().delay(function(d, i) { return i * 500;})
         .style("fill", function(d) { return "rgb(" + 255 + "," + (255 - d*255) +", " + (275-(d*255)) + ")";});
 
-};
-
-function getData(year, bin) {
-    var sumData;
-    $.ajax({
-	type: 'POST',
-	async: false,
-	url:'/ajax/get_sequence_data.php',
-	data: {'year':year},
-	success: function(response) {
-	    response = JSON.parse(response);
-	    seq = response['1.00'] || response['0.90'] || response['0.50'];
-	    sumData = buildSummaryData(seq['sequence'], bin);
-	}
-    });
-    return sumData;
 };
 
 function buildSummaryData(sequenceData, binWidth) {

@@ -27,11 +27,13 @@ EOT;
 if($stmt = $mysqli->prepare($sql))
 {
 	$stmt->execute();
-	$stmt->bind_result($id, $subtype, $year, $consensus, $threshold, $description, $sequence, $count);
+	$stmt->bind_result($id, $subtype, $year, $consensus, $threshold, $georegion, $country, $description, $sequence, $count);
 	while($stmt->fetch())
 	{
 		$data["$year.$threshold"] =  Array('id' => $id,
 		      	      'year' => $year,
+			      'georegion' => $georegion,
+			      'country' => $country,
 			      'threshold' => $threshold,
 			      'description' => $description,
 			      'count' => $count,

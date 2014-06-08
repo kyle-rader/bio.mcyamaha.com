@@ -40,6 +40,7 @@ $(document).ready(function() {
 });
 
 var _data = <?php print json_encode(GetHIVData($mysqli)); ?>;
+var _proteinData = <?php print json_encode(GetProteinData($mysqli)); ?>
 <?php include_once("hiv.js"); ?>
 </script>
 </html>

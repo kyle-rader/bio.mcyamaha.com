@@ -28,5 +28,23 @@ EOT;
 	return $data;
 }
 
+function GetProteinData($mysqli)
+{
+	$data = Array();
+	$sql = <<<EOT
+SELECT HXB2_Position,protein FROM Proteins
+EOT;
 
+	if($stmt = $mysqli->prepare($sql))
+	{
+		$stmt->execute();
+		$stmt-> bind_result($place, $des);
+		while($stmt->fetch())
+		{
+			$data[] = Array('place' => $place,
+							'des' =>$des);
+		}//end while
+	}//end if
+	return $data;
+}//end getProteinData
 ?>

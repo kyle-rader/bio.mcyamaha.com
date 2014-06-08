@@ -14,9 +14,18 @@ $page_title = 'CSCI 474 S14 HIV';
 <?php 
 include_once "$baseInclude/include/header.inc";
 ?>
-
+<style>
+svg > text{
+	fill: white;
+	font: 18px arial;
+	text-anchor:left;
+}
+</style>
+	
 <body>
 	<div class="row-wide">
+		<div class="scale">
+		</div>
 		<div class="sequence-data-1">
 		  <h5>100% Consensus</h5>
 		</div>

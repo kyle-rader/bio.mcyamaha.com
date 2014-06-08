@@ -9,13 +9,19 @@ function LoadPage(page) {
 	if (content.text() != '') {
 		content.fadeOut(50, function() {
 			$.get('/ajax/get_page.php?page=' + page, function(response) {
-				content.html(response).fadeIn(250);
+			    content.html(response).show();
+			    if(readyFunction) {
+				readyFunction();
+			    }
 			});
 		});
 	} else {
-		$.get('/ajax/get_page.php?page=' + page, function(response) {
-			content.html(response).fadeIn(250);
-		});
+	    $.get('/ajax/get_page.php?page=' + page, function(response) {
+		content.html(response).show();
+		if(readyFunction) {
+		    readyFunction();
+		}
+	    });
 	}
     	$('a.top-btn').parent().removeClass('active');
 	$('a.top-btn[data-target='+page+']').parent().addClass('active');

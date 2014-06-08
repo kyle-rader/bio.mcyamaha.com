@@ -2,7 +2,7 @@
 
 function GetHIVData($mysqli) 
 {
-	$data = Array( "0.50" => Array(), "0.70" => Array(), "0.80" => Array(), "0.90" => Array(), "1.00" => Array());
+	$data = Array("1.00" => Array(), "0.90" => Array(), "0.80" => Array(), "0.70" => Array(), "0.50" => Array());
 	$sql = <<<EOT
 SELECT * FROM sequence
 WHERE consensus = 1 AND subtype = 'B'
@@ -27,4 +27,6 @@ EOT;
 	}
 	return $data;
 }
+
+
 ?>

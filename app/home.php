@@ -11,13 +11,11 @@ print PageTitle($title);
 <style>
 <?php include_once("css/home.css"); ?>
 </style>
-<script>
-var _data = <?php print json_encode(GetHIVData($mysqli)); ?>;
-</script>
-<div class="row-wide">
-     <div class="sequence-data">
-     </div>
+
+<div class="row">
+	<div class="large-12 columns">
+		A project on HIV consensus variation.<hr>
+		<a href="/hiv_data.php">HIV Data</a>
+	</div>
 </div>
-<script>
-<?php //include_once("js/home.js"); ?>
-</script>
+

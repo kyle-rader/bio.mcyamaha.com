@@ -32,17 +32,42 @@ function GetProteinData($mysqli)
 {
 	$data = Array();
 	$sql = <<<EOT
-SELECT HXB2_Position,protein FROM Proteins
+SELECT
+P.HXB2_Position, P.protein,
+'start' AS q
+FROM
+Proteins P
+INNER JOIN Proteins PE
+ON (PE.HXB2_Position = P.HXB2_Position - 1)
+WHERE
+(PE.protein != P.protein)
+
+UNION
+
+SELECT
+P.HXB2_Position, P.protein,
+'end' AS q
+FROM
+Proteins P
+INNER JOIN Proteins PS
+ON (PS.HXB2_Position = P.HXB2_Position + 1)
+WHERE
+(PS.protein != P.protein)
+
+ORDER BY
+HXB2_Position;
+
 EOT;
 
 	if($stmt = $mysqli->prepare($sql))
 	{
 		$stmt->execute();
-		$stmt-> bind_result($place, $des);
+		$stmt-> bind_result($position, $protein, $tag);
 		while($stmt->fetch())
 		{
-			$data[] = Array('place' => $place,
-							'des' =>$des);
+			$data[] = Array('position' => $position,
+					'protein' =>$protein,
+					'tag' => $tag);
 		}//end while
 	}//end if
 	return $data;

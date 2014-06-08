@@ -8,15 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST')
 	header("HTTP/1.0 400 Wrong Request Type.");
 	exit();
 }
-//else if (!isset($_POST['year']))
-//{
-//	header("HTTP/1.0 400 Missing 'year' Query String.");
-//	exit();
-//}
 
-//$year = $_POST['year'];
-
-//$hiv_type = $_POST['hiv_type'];
 $data = [];
 
 $sql = <<<EOT

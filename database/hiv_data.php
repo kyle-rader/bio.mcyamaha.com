@@ -2,10 +2,10 @@
 
 function GetHIVData($mysqli) 
 {
-	$data = Array();
+	$data = Array( "0.50" => Array(), "0.70" => Array(), "0.80" => Array(), "0.90" => Array(), "1.00" => Array());
 	$sql = <<<EOT
 SELECT * FROM sequence
-WHERE consensus = 1
+WHERE consensus = 1 AND subtype = 'B'
 ORDER BY year DESC;
 EOT;
 
@@ -15,7 +15,7 @@ EOT;
 		$stmt->bind_result($id, $subtype, $year, $consensus, $threshold, $georegion, $country, $description, $sequence);
 		while($stmt->fetch())
 		{
-			$data[] = Array('id' => $id,
+			$data[$threshold][$year] = Array('id' => $id,
 				   'subtype' => $subtype,
 				   'year' => $year,
 				   'country' => $country, 

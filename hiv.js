@@ -2,11 +2,14 @@
 function readyFunction() {
     var classes = {"1.00":"1", "0.90":"2", "0.80":"3", "0.70":"4", "0.50":"5"};
     
+	
     $.each(_data, function(key, value) {
 		$.each(_data[key], function(year, seqData) {
 			buildSumbar(_data[key][year], classes[key]);
 		});
     });
+	
+	console.log(_proteinData);
 };
 
 function buildSumbar(data, thresholdClass) {
@@ -35,7 +38,7 @@ function buildSumbar(data, thresholdClass) {
 	.attr("y", function(d) { return 0; })
 	.attr("height", function(d) { return barHeight; })
 	.attr("width", barWidth - (barWidth * .25))
-	.style("fill", function(d) { return "rgb(" + 255 + "," + (255 - d*255) +", " + (275-(d*255)) + ")";});
+	.style("fill", function(d) { return "rgb(" + (255 - d*255) + "," + (255 - d*155) +", " + 255 + ")";});
 
 };
 

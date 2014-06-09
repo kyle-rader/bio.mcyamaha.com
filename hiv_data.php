@@ -24,6 +24,8 @@ svg > text{
 	
 <body>
 	<div class="row-wide">
+		<div class="proteins">
+		</div>
 		<div class="scale">
 		</div>
 		<div class="sequence-data-1">

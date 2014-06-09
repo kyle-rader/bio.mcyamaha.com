@@ -1,20 +1,223 @@
 
+var GENOME_LENGTH = 9719;
+
+var GENE_MAP = {
+    "rf1": {
+        "5 LTR": {
+            "start": 1,
+            "end": 634
+        },
+        "gag : p17": {
+            "start": 790,
+            "end": 1186
+        },
+        "gag : p24": {
+            "start": 1187,
+            "end": 1879
+        },
+        "gag : p7": {
+            "start": 1921,
+            "end": 2086
+        },
+        "gag : p6": {
+            "start": 2087,
+            "end": 2292
+        },
+        "vif": {
+            "start": 5041,
+            "end": 5619
+        },
+        "tat": {
+            "start": 8379,
+            "end": 8469
+        },
+        "nef": {
+            "start": 8797,
+            "end": 9417
+        }
+    },
+    "rf2": {
+        "tat": {
+            "start": 5831,
+            "end": 6045
+        },
+        "vpu": {
+            "start": 6062,
+            "end": 6310
+        },
+        "rev": {
+            "start": 8379,
+            "end": 8653
+        },
+        "3 LTR": {
+            "start": 9086,
+            "end": 9719
+        }
+    },
+    "rf3": {
+        "pol": {
+            "start": 2085,
+            "end": 5096
+        },
+        "p1": {
+            "start": 2085,
+            "end": 2252
+        },
+        "prot": {
+            "start": 2253,
+            "end": 2550
+        },
+        "p51 RT": {
+            "start": 2551,
+            "end": 3870
+        },
+        "p15 RNase": {
+            "start": 3871,
+            "end": 4230
+        },
+        "p31 int": {
+            "start": 4231,
+            "end": 5096
+        },
+        "vpr": {
+            "start": 5559,
+            "end": 5849
+        },
+        "tat": {
+            "start": 5970,
+            "end": 6044
+        },
+        "env": {
+            "start": 6225,
+            "end": 8795
+        },
+        "gp120": {
+            "start": 6225,
+            "end": 7757
+        },
+        "gp41": {
+            "start": 7759,
+            "end": 8794
+        }
+    }
+};
+
 function readyFunction() {
     var classes = {"1.00":"1", "0.90":"2", "0.80":"3", "0.70":"4", "0.50":"5"};
-    
+
+	buildScale();
+
     $.each(_data, function(key, value) {
 		$.each(_data[key], function(year, seqData) {
 			buildSumbar(_data[key][year], classes[key]);
 		});
     });
 	
-	console.log(_proteinData);
+
+	
+	// console.log(_proteinData);
 };
 
-function buildScale(maxVal) {
+function buildScale() {
+
+	// Width of scale.
+	
 	var width = Math.round($(window).width() * 0.85), height = 25;
 	
+	// <svg> container.
+	
+	var svg =
+		$('<svg></svg>')
+			.attr
+			(
+				{
+					'width': width,
+					'height': 100
+				}
+			);
+	
+	// Decorate parent of <svg>.
+	
+	$('.proteins')
+		.css
+		(
+			{
+
+				'position': 'fixed',
+				'height': '100px'
+			}
+		)
+		.append(svg);
+
+	var YEAR_GUTTER_WIDTH = 50;
+	var fsize = function (i) { return YEAR_GUTTER_WIDTH + (width * i / (GENOME_LENGTH - YEAR_GUTTER_WIDTH)); };
+	var i = 0;
+	
+	// For each reading frame in the genome...
+	
+	for (var frame in GENE_MAP)
+	{
+		for (var gene in GENE_MAP[frame])
+		{	
+			var q = GENE_MAP[frame][gene];
+
+			// <g> container for gene display.
+			
+			var container = $('<g></g>');
+			svg.append(container);
+		
+			container
+			
+				// Offset based on start locus; vertical offset based on frame (0 ~ 2).
+				
+				.attr
+				(
+					{
+						'transform': 'translate(' + fsize(q['start']) + ', ' + (25 * i) + ')'
+					}
+				)
+				
+				// Append the rectangle representing the gene in the reading frame.
+				
+				.append
+				(
+					$('<rect></rect>')
+						.attr
+						(
+							{
+								'width': (fsize(q['end'] - q['start'])),
+								'height': 20,
+								'style': 'fill: white; stroke: black;'
+							}
+						)
+				)
+				
+				// Append the text label for the gene rectangle.
+				
+				.append
+				(
+					$('<text></text>')
+						.attr
+						(
+							{
+								'style': 'fill: black;',
+								'x': 5,
+								'y': 15
+							}
+						)
+						.html(gene)
+				);
+		}
+		i++;
+	}
+	
+	// Trick: <svg> appears in the DOM but not in the display.
+	// "Refresh" the parent container of the <svg> to get it to
+	// wake up.
+	
+	$('.proteins').html( $('.proteins').html() );
 }
+
 function buildSumbar(data, thresholdClass) {
 
     var sumSeq = buildSummaryData(data['sequence'], 30);

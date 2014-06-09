@@ -7,21 +7,21 @@ var GENE_MAP = {
             "start": 1,
             "end": 634
         },
-        "gag : p17": {
+        "p17": {
             "start": 790,
-            "end": 1186
+            "end": 1185
         },
-        "gag : p24": {
-            "start": 1187,
+        "p24": {
+            "start": 1186,
             "end": 1879
         },
-        "gag : p7": {
+        "p7": {
             "start": 1921,
             "end": 2086
         },
-        "gag : p6": {
-            "start": 2087,
-            "end": 2292
+        "p6": {
+            "start": 2134,
+            "end": 2291
         },
         "vif": {
             "start": 5041,
@@ -29,7 +29,7 @@ var GENE_MAP = {
         },
         "tat": {
             "start": 8379,
-            "end": 8469
+            "end": 8468
         },
         "nef": {
             "start": 8797,
@@ -87,10 +87,6 @@ var GENE_MAP = {
             "start": 5970,
             "end": 6044
         },
-        "env": {
-            "start": 6225,
-            "end": 8795
-        },
         "gp120": {
             "start": 6225,
             "end": 7757
@@ -112,10 +108,7 @@ function readyFunction() {
 			buildSumbar(_data[key][year], classes[key]);
 		});
     });
-	
 
-	
-	// console.log(_proteinData);
 };
 
 function buildScale() {
@@ -139,18 +132,10 @@ function buildScale() {
 	// Decorate parent of <svg>.
 	
 	$('.proteins')
-		.css
-		(
-			{
-
-				'position': 'fixed',
-				'height': '100px'
-			}
-		)
 		.append(svg);
 
 	var YEAR_GUTTER_WIDTH = 50;
-	var fsize = function (i) { return YEAR_GUTTER_WIDTH + (width * i / (GENOME_LENGTH - YEAR_GUTTER_WIDTH)); };
+	var fsize = function (i) { return YEAR_GUTTER_WIDTH + ((width-YEAR_GUTTER_WIDTH) * i / (GENOME_LENGTH)); };
 	var i = 0;
 	
 	// For each reading frame in the genome...

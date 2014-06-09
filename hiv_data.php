@@ -20,6 +20,16 @@ svg > text{
 	font: 18px arial;
 	text-anchor:left;
 }
+
+.proteins {
+	top:10px;
+	position:fixed;
+	height:100px;
+}
+
+.sequence-data-1 {
+	margin-top:85px;
+}
 </style>
 	
 <body>

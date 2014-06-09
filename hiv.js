@@ -135,7 +135,7 @@ function buildScale() {
 		.append(svg);
 
 	var YEAR_GUTTER_WIDTH = 50;
-	var fsize = function (i) { return YEAR_GUTTER_WIDTH + ((width-YEAR_GUTTER_WIDTH) * i / (GENOME_LENGTH)); };
+	var fsize = function (i) { return YEAR_GUTTER_WIDTH + (((width-YEAR_GUTTER_WIDTH) * i) / (GENOME_LENGTH)); };
 	var i = 0;
 	
 	// For each reading frame in the genome...
@@ -143,7 +143,7 @@ function buildScale() {
 	for (var frame in GENE_MAP)
 	{
 		for (var gene in GENE_MAP[frame])
-		{	
+		{
 			var q = GENE_MAP[frame][gene];
 
 			// <g> container for gene display.
@@ -170,7 +170,7 @@ function buildScale() {
 						.attr
 						(
 							{
-								'width': (fsize(q['end'] - q['start'])),
+								'width': (fsize(q['end']) - fsize(q['start'])),
 								'height': 20,
 								'style': 'fill: white; stroke: black;'
 							}
